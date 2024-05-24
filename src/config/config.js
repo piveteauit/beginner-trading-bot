@@ -3,12 +3,12 @@ module.exports = {
   API_SECRET: process?.env?.BYBIT_API_SECRET,
   SYMBOLS: [
     "DOGE/USDT:USDT",
-    // "LTC/USDT:USDT",
+    "LTC/USDT:USDT",
     "SOL/USDT:USDT",
     "DOT/USDT:USDT",
-    // "AVAX/USDT:USDT",
-    // "UNI/USDT:USDT",
-    // "LINK/USDT:USDT",
+    "AVAX/USDT:USDT",
+    "UNI/USDT:USDT",
+    "LINK/USDT:USDT",
     "THETA/USDT:USDT",
     "MATIC/USDT:USDT",
     "BTC/USDT:USDT",
@@ -18,8 +18,8 @@ module.exports = {
     "DOGE/USDT:USDT": "50",
     "BTC/USDT:USDT": "100",
   },
-  INITIAL_BALANCE: 20, // Capital initial pour le backtest,
-  TARGET_BALANCE: 150,
+  INITIAL_BALANCE: 100, // Capital initial pour le backtest,
+  TARGET_BALANCE: 10_000,
   BACKTEST: {
     DURATION: "2024-05-01T00:00:00Z", // Date de début des données historiques
     CANDLES_LIMIT: 100_000, // Nombre maximum de bougies à récupérer

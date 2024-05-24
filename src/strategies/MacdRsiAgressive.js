@@ -5,14 +5,14 @@ const strategyConfig = {
   description:
     "Utilise le RSI et le MACD sur un timeframe de 5 minutes pour détecter les points d'achat et de vente.",
   parameters: {
-    rsi_period: 7, // Période plus courte
-    macd_fast_period: 6, // Période plus courte
-    macd_slow_period: 13, // Période plus courte
-    macd_signal_period: 5, // Période plus courte
-    rsi_overbought: 65, // Seuil plus bas
-    rsi_oversold: 35, // Seuil plus haut
-    stop_loss_pct: 0.1,
-    take_profit_pct: 0.5,
+    rsi_period: 14,
+    macd_fast_period: 12,
+    macd_slow_period: 26,
+    macd_signal_period: 9,
+    rsi_overbought: 70,
+    rsi_oversold: 30,
+    stop_loss_pct: 0.01,
+    take_profit_pct: 0.05,
     leverage: 50,
     max_trade_pct: 0.3,
   },
@@ -49,4 +49,29 @@ function detectSignal(prices, parameters) {
   }
 }
 
-module.exports = { strategyConfig, detectSignal };
+function managePosition(position, currentPrice, parameters) {
+  const { entryPrice, size, side } = position;
+  const takeProfitPrice =
+    side === "buy"
+      ? entryPrice * (1 + parameters.take_profit_pct)
+      : entryPrice * (1 - parameters.take_profit_pct);
+  const stopLossPrice =
+    side === "buy"
+      ? entryPrice * (1 - parameters.stop_loss_pct)
+      : entryPrice * (1 + parameters.stop_loss_pct);
+
+  if (
+    (side === "buy" && currentPrice >= takeProfitPrice) ||
+    (side === "sell" && currentPrice <= takeProfitPrice)
+  ) {
+    return { action: side === "buy" ? "sell" : "buy", tradeSize: size };
+  } else if (
+    (side === "buy" && currentPrice <= stopLossPrice) ||
+    (side === "sell" && currentPrice >= stopLossPrice)
+  ) {
+    return { action: side === "buy" ? "sell" : "buy", tradeSize: size };
+  }
+  return null;
+}
+
+module.exports = { strategyConfig, detectSignal, managePosition };
