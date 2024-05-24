@@ -6,7 +6,6 @@
   "scripts": {
     "start": "node index.js trade",
     "test": "node index.js backtest",
-    
     "trade": "node trading-bot/index.js trade"
   },
   "keywords": [],
@@ -16,6 +15,7 @@
     "axios": "^1.7.1",
     "ccxt": "^4.3.29",
     "cheerio": "1.0.0-rc.12",
+    "dotenv": "^16.4.5",
     "inquirer": "^8.2.4",
     "nodemailer": "^6.9.13",
     "stripe": "^15.7.0",

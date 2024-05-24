@@ -1,6 +1,6 @@
 module.exports = {
   API_KEY: process?.env?.BYBIT_API_KEY,
-  API_SECRET: process?.env?.API_SECRET,
+  API_SECRET: process?.env?.BYBIT_API_SECRET,
   SYMBOLS: [
     "DOGE/USDT:USDT",
     // "LTC/USDT:USDT",
